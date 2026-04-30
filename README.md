@@ -7,7 +7,7 @@ LivePoll is a mini end-to-end Stellar + Soroban dApp: a multi-wallet polling app
 - Live demo link: TODO
 - Demo video (1 minute) link: TODO
 - Test output screenshot (3+ passing tests): TODO (run `npm test` and capture the terminal output)
-- Public GitHub repo link: TODO
+- Public GitHub repo link: https://github.com/NaViN-TiWaRi-24/LIVEPOLL.git
 - 3+ meaningful commits for Level 3: TODO
 
 ## Submission Overview
