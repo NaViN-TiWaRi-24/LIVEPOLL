@@ -59,7 +59,7 @@ Wallet options available:
 
 ## Setup
 
-Run all commands from the `live-poll` project directory.
+Run all commands from the `livepoll` project directory.
 
 1. Install dependencies:
 
@@ -161,7 +161,7 @@ Suggested recording flow:
 
 ## Submission Notes
 
-- GitHub repository: `https://github.com/Sagar522290/livepoll.git`
+- GitHub repository: `https://github.com/NaViN-TiWaRi-24/LIVEPOLL.git`
 - The project includes multiple meaningful commits in git history
 - The contract is deployed on testnet and called from the frontend
 - Real-time event integration and visible transaction status are implemented
