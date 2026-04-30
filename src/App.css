@@ -781,6 +781,7 @@
   padding: 1.1rem;
   border: 1px solid rgba(20, 54, 66, 0.1);
   border-radius: 1.4rem;
+  cursor: pointer;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 249, 242, 0.92)),
     rgba(255, 255, 255, 0.7);
@@ -789,6 +790,11 @@
     transform 180ms ease,
     border-color 180ms ease,
     box-shadow 180ms ease;
+}
+
+.poll-card:focus-visible {
+  outline: 3px solid rgba(219, 106, 78, 0.35);
+  outline-offset: 3px;
 }
 
 .poll-card::before {

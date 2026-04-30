@@ -697,7 +697,7 @@ function App() {
 
       <header className="topbar">
         <div>
-          <p className="eyebrow">Stellar Level 2</p>
+          <p className="eyebrow">Stellar Level 3</p>
           <h1>LivePoll Testnet Control Room</h1>
           <p className="subtitle">
             Multi-wallet voting, contract-backed poll storage, live event sync, and
@@ -998,18 +998,20 @@ function App() {
             <div className="control-strip">
               <input
                 className="search-input"
+                type="search"
+                aria-label="Search polls"
                 placeholder="Search polls or options"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
               />
 
-              <select value={filter} onChange={(event) => setFilter(event.target.value)}>
+              <select aria-label="Filter polls" value={filter} onChange={(event) => setFilter(event.target.value)}>
                 <option value="all">All</option>
                 <option value="active">Active</option>
                 <option value="closed">Closed</option>
               </select>
 
-              <select value={sortBy} onChange={(event) => setSortBy(event.target.value)}>
+              <select aria-label="Sort polls" value={sortBy} onChange={(event) => setSortBy(event.target.value)}>
                 <option value="ending-soon">Ending soon</option>
                 <option value="most-votes">Most votes</option>
                 <option value="newest">Newest</option>
@@ -1038,6 +1040,15 @@ function App() {
                   <article
                     key={poll.id}
                     className={selectedPoll?.id === poll.id ? 'poll-card selected' : 'poll-card'}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => openPollDetails(poll.id)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault()
+                        openPollDetails(poll.id)
+                      }
+                    }}
                   >
                     <div className="poll-card-head">
                       <span className={`state-pill ${state}`}>{state}</span>
@@ -1057,13 +1068,21 @@ function App() {
                     </div>
 
                     <div className="card-actions">
-                      <button className="secondary-button" onClick={() => openPollDetails(poll.id)} type="button">
+                      <button
+                        className="secondary-button"
+                        onClick={(event) => {
+                          event.stopPropagation()
+                          openPollDetails(poll.id)
+                        }}
+                        type="button"
+                      >
                         View details
                       </button>
                       <div className="detail-actions">
                         <button
                           className="ghost-button"
-                          onClick={() => {
+                          onClick={(event) => {
+                            event.stopPropagation()
                             const shareLink = `${window.location.origin}${window.location.pathname}${window.location.search}#poll-${poll.id}`
                             navigator.clipboard
                               .writeText(shareLink)
