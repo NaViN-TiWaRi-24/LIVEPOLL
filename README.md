@@ -6,9 +6,12 @@ LivePoll is a mini end-to-end Stellar + Soroban dApp: a multi-wallet polling app
 
 - Live demo link: https://livepoll-git-main-navin-tiwari-24s-projects.vercel.app/
 - Demo video (1 minute) link: https://drive.google.com/file/d/1LYT43aKJ83tEFJNWNca-OYyc7OzOJey4/view?usp=sharing
-- Test output screenshot (3+ passing tests): TODO (run `npm test` and capture the terminal output)
+- Test output screenshot (3+ passing tests): Checked (see below)
 - Public GitHub repo link: https://github.com/NaViN-TiWaRi-24/LIVEPOLL.git
-- 3+ meaningful commits for Level 3: TODO
+- 3+ meaningful commits for Level 3: DONE
+
+## Test Output (Screenshot)
+<img width="980" height="340" alt="npm test" src="https://github.com/user-attachments/assets/6117b789-5714-4642-879a-cafa7c1e88e0" />
 
 ## Submission Overview
 
