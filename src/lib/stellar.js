@@ -19,7 +19,6 @@ import {
   getAddress as getFreighterAddress,
   requestAccess as requestFreighterAccess,
 } from '@stellar/freighter-api'
-import pollContractWasmUrl from '../../poll_contract/target/wasm32v1-none/release/poll_contract.wasm?url'
 
 if (!globalThis.Buffer) {
   globalThis.Buffer = Buffer
@@ -55,6 +54,32 @@ export const walletKit = new StellarWalletsKit({
 })
 
 let specPromise
+
+async function loadContractWasm() {
+  const configuredWasmUrl = import.meta.env.VITE_POLL_CONTRACT_WASM_URL
+
+  if (configuredWasmUrl) {
+    const response = await fetch(configuredWasmUrl)
+    if (!response.ok) {
+      throw new Error(
+        `Unable to load contract WASM from VITE_POLL_CONTRACT_WASM_URL (${response.status}).`,
+      )
+    }
+
+    return Buffer.from(await response.arrayBuffer())
+  }
+
+  ensureContractConfigured()
+
+  try {
+    return await server.getContractWasmByContractId(CONTRACT_ID)
+  } catch (error) {
+    const message = error?.message || String(error || 'Unknown error')
+    throw new Error(
+      `Unable to load contract WASM from the RPC server. Either set VITE_POLL_CONTRACT_WASM_URL or build the contract locally (npm run contract:build). Underlying error: ${message}`,
+    )
+  }
+}
 
 function ensureContractConfigured() {
   if (!CONTRACT_ID) {
@@ -158,15 +183,7 @@ export function getExplorerLink(type, value) {
 
 export async function getContractSpec() {
   if (!specPromise) {
-    specPromise = fetch(pollContractWasmUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Unable to load the compiled poll contract wasm.')
-        }
-
-        return response.arrayBuffer()
-      })
-      .then((buffer) => Spec.fromWasm(Buffer.from(buffer)))
+    specPromise = loadContractWasm().then((wasm) => Spec.fromWasm(wasm))
   }
 
   return specPromise

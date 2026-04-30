@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import './App.css'
+import './ui.css'
 import {
   connectWallet,
   CONTRACT_ID,
@@ -261,6 +261,14 @@ function classifyError(error) {
 }
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    const stored = window.localStorage.getItem('livepoll_theme')
+    if (stored === 'light' || stored === 'dark') {
+      return stored
+    }
+
+    return window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? 'dark' : 'light'
+  })
   const [wallet, setWallet] = useState(null)
   const [polls, setPolls] = useState(() => readCachedPolls())
   const [voteLookup, setVoteLookup] = useState({})
@@ -278,6 +286,11 @@ function App() {
   const [lastSyncedAt, setLastSyncedAt] = useState(null)
   const [transaction, setTransaction] = useState({ phase: 'idle' })
   const [recentEvents, setRecentEvents] = useState([])
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    window.localStorage.setItem('livepoll_theme', theme)
+  }, [theme])
 
   const eventCursorRef = useRef(null)
   const refreshPollStateRef = useRef(null)
@@ -698,7 +711,10 @@ function App() {
       <header className="topbar">
         <div>
           <p className="eyebrow">Stellar Level 3</p>
-          <h1>LivePoll Testnet Control Room</h1>
+          <h1 className="brand-title">
+            <span className="brand-name">LivePoll</span>
+            <span className="brand-tag">Testnet Control Room</span>
+          </h1>
           <p className="subtitle">
             Multi-wallet voting, contract-backed poll storage, live event sync, and
             visible transaction state on Stellar testnet.
@@ -706,6 +722,13 @@ function App() {
         </div>
 
         <div className="topbar-actions">
+          <button
+            className="ghost-button theme-toggle"
+            onClick={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
+            type="button"
+          >
+            {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+          </button>
           <div className="network-pill">
             <span className="status-dot" />
             {NETWORK_PASSPHRASE === 'Test SDF Network ; September 2015' ? 'Testnet' : 'Custom network'}
