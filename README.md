@@ -39,11 +39,13 @@ This project demonstrates:
 
 Website preview:
 
-![LivePoll website screenshot](./public/app-screenshot.png)
+<img width="1920" height="1080" alt="Screenshot (2)" src="https://github.com/user-attachments/assets/3f1760b5-7ac8-4898-a1cd-ed3e87cbc651" />
+
 
 Wallet options available:
 
-![Wallet options preview](./public/wallet-options-preview.svg)
+<img width="1920" height="1020" alt="Screenshot 2026-04-30 224446" src="https://github.com/user-attachments/assets/eb25f915-bafb-4213-a90f-cf597908fe5b" />
+
 
 ## Deployed Contract
 
